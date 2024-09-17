@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://www.semanticweb.org/ontologies/2024/8/legal_ontology"
+         xmlns="http://www.semanticweb.org/ontologies/2024/8/legal_ontology#">
+
+<owl:Ontology rdf:about="http://www.semanticweb.org/ontologies/2024/8/legal_ontology"/>
+
+<owl:ObjectProperty rdf:about="#canBePromulgatedBy">
+  <rdfs:domain rdf:resource="#Legal_Documents"/>
+  <rdfs:range rdf:resource="#Agencies"/>
+</owl:ObjectProperty>
+
+<owl:Class rdf:about="#Legal_Documents">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Legal_Normative_Document">
+  <rdfs:subClassOf rdf:resource="#Legal_Documents"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Agencies">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Central_Level_Agencies">
+  <rdfs:subClassOf rdf:resource="#Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Local_Level_Agencies">
+  <rdfs:subClassOf rdf:resource="#Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Circulars">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Constitution">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Decisions">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Legal_Normative_Document"/>
+        <owl:Restriction>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#Prime_Minister"/>
+                <rdf:Description rdf:about="#State_Auditor"/>
+                <rdf:Description rdf:about="#Peoples_Committees_all_levels"/>
+                <rdf:Description rdf:about="#President"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Decrees">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Joint_Resolutions">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Laws">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ordinances">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Resolutions">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+<owl:Class rdf:about="#National_Assembly">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Standing_Committee_of_the_National_Assembly">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Government">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Prime_Minister">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#State_Auditor">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Judicial_Council_of_the_People_s_Supreme_Court">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#President">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Supreme_Court">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Supreme_Peoples_Court">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Council_all_levels">
+  <rdfs:subClassOf rdf:resource="#Local_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Committees_all_levels">
+  <rdfs:subClassOf rdf:resource="#Local_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Council_of_Province">
+  <rdfs:subClassOf rdf:resource="#Peoples_Council_all_levels"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Council_of_District">
+  <rdfs:subClassOf rdf:resource="#Peoples_Council_all_levels"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Council_of_Commune">
+  <rdfs:subClassOf rdf:resource="#Peoples_Council_all_levels"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Committee_of_Province">
+  <rdfs:subClassOf rdf:resource="#Peoples_Committees_all_levels"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Committee_of_District">
+  <rdfs:subClassOf rdf:resource="#Peoples_Committees_all_levels"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Peoples_Committee_of_Commune">
+  <rdfs:subClassOf rdf:resource="#Peoples_Committees_all_levels"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_and_Ministerial_Level_Agencies">
+  <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_National_Defense">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Public_Security">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Foreign_Affairs">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Justice">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Finance">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Industry_and_Trade">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Labor_War_Invalids_and_Social_Affairs">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Transport">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Construction">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Information_and_Communications">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Education_and_Training">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Agriculture_and_Rural_Development">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Planning_and_Investment">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Home_Affairs">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Health">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Science_and_Technology">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Culture_Sports_and_Toursm">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Ministry_of_Natural_Resources_and_Environment">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Government_Inspectorate">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#The_State_Bank_of_Vietnam">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Committee_for_Ethnic_Affairs">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Office_of_the_Government">
+  <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Joint_Circulars">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Legal_Normative_Document"/>
+        <owl:Restriction>
+          <owl:onClass>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#State_Auditor"/>
+                <rdf:Description rdf:about="#Peoples_Supreme_Court"/>
+                <rdf:Description rdf:about="#Supreme_Peoples_Court"/>
+                <rdf:Description rdf:about="#Ministry_and_Ministerial_Level_Agencies"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:onClass>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+          <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#State_Auditor"/>
+                <rdf:Description rdf:about="#Peoples_Supreme_Court"/>
+                <rdf:Description rdf:about="#Supreme_Peoples_Court"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+</owl:Class>
+
+
+</rdf:RDF>
