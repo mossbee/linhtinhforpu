@@ -33,58 +33,6 @@
   <rdfs:subClassOf rdf:resource="#Agencies"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Circulars">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Constitution">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Decisions">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Legal_Normative_Document"/>
-        <owl:Restriction>
-          <owl:someValuesFrom>
-            <owl:Class>
-              <owl:unionOf rdf:parseType="Collection">
-                <rdf:Description rdf:about="#Prime_Minister"/>
-                <rdf:Description rdf:about="#State_Auditor"/>
-                <rdf:Description rdf:about="#Peoples_Committees_all_levels"/>
-                <rdf:Description rdf:about="#President"/>
-              </owl:unionOf>
-            </owl:Class>
-          </owl:someValuesFrom>
-          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Decrees">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Joint_Resolutions">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Laws">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Ordinances">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Resolutions">
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
-</owl:Class>
-
 <owl:Class rdf:about="#National_Assembly">
   <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
 </owl:Class>
@@ -109,7 +57,7 @@
   <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Judicial_Council_of_the_People_s_Supreme_Court">
+<owl:Class rdf:about="#Judicial_Council_of_the_Peoples_Supreme_Court">
   <rdfs:subClassOf rdf:resource="#Central_Level_Agencies"/>
 </owl:Class>
 
@@ -249,12 +197,174 @@
   <rdfs:subClassOf rdf:resource="#Ministry_and_Ministerial_Level_Agencies"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Joint_Circulars">
-  <owl:equivalentClass>
+<owl:Class rdf:about="#Constitution">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass rdf:resource="#National_Assembly"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Laws">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass rdf:resource="#National_Assembly"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Ordinances">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass rdf:resource="#Standing_Committee_of_the_National_Assembly"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Resolutions">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="#National_Assembly"/>
+            <rdf:Description rdf:about="#Standing_Committee_of_the_National_Assembly"/>
+            <rdf:Description rdf:about="#Judicial_Council_of_the_Peoples_Supreme_Court"/>
+            <rdf:Description rdf:about="#Peoples_Council_all_levels"/>
+          </owl:unionOf>
+        </owl:Class>
+      </owl:onClass>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Joint_Resolutions">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Legal_Normative_Document"/>
         <owl:Restriction>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+          <owl:onClass>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#Standing_Committee_of_the_National_Assembly"/>
+                <rdf:Description rdf:about="#Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front"/>
+                <rdf:Description rdf:about="#Government"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:onClass>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:qualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+          <owl:onClass>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#Standing_Committee_of_the_National_Assembly"/>
+                <rdf:Description rdf:about="#Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:onClass>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+          <owl:onClass>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front"/>
+                <rdf:Description rdf:about="#Government"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:onClass>
+          <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Orders">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass rdf:resource="#President"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Decrees">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass rdf:resource="#Government"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Decisions">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="#Prime_Minister"/>
+            <rdf:Description rdf:about="#State_Auditor"/>
+            <rdf:Description rdf:about="#Peoples_Committees_all_levels"/>
+            <rdf:Description rdf:about="#President"/>
+          </owl:unionOf>
+        </owl:Class>
+      </owl:onClass>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Circulars">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
+      <owl:onClass>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="#Peoples_Supreme_Court"/>
+            <rdf:Description rdf:about="#Ministry_and_Ministerial_Level_Agencies"/>
+            <rdf:Description rdf:about="#Supreme_Peoples_Court"/>
+          </owl:unionOf>
+        </owl:Class>
+      </owl:onClass>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#Joint_Circulars">
+  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
           <owl:onClass>
             <owl:Class>
               <owl:unionOf rdf:parseType="Collection">
@@ -265,10 +375,10 @@
               </owl:unionOf>
             </owl:Class>
           </owl:onClass>
-          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
           <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
         </owl:Restriction>
         <owl:Restriction>
+          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
           <owl:someValuesFrom>
             <owl:Class>
               <owl:unionOf rdf:parseType="Collection">
@@ -278,12 +388,10 @@
               </owl:unionOf>
             </owl:Class>
           </owl:someValuesFrom>
-          <owl:onProperty rdf:resource="#canBePromulgatedBy"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Legal_Normative_Document"/>
+  </rdfs:subClassOf>
 </owl:Class>
 
 
