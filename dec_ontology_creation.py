@@ -3,17 +3,6 @@ import types
 
 legal_onto = get_ontology("http://www.semanticweb.org/ontologies/2024/8/legal_ontology")
 
-doc_type = [
-    "Circulars",
-    "Constitution",
-    "Decisions",
-    "Decrees",
-    "Joint Resolutions",
-    "Laws",
-    "Ordinances",
-    "Resolutions",
-]
-
 central_agencies = [
     "National Assembly",
     "Standing Committee of the National Assembly",
@@ -120,8 +109,8 @@ President = legal_onto.President
 Peoples_Supreme_Court = legal_onto.Peoples_Supreme_Court
 Supreme_Peoples_Court = legal_onto.Supreme_Peoples_Court
 
-# Constitution can only be promulgate by one National Assembly
-class Constitution(Legal_Normative_Document):
+# Constitutions can only be promulgate by one National Assembly
+class Constitutions(Legal_Normative_Document):
     is_a = [
         canBePromulgatedBy.exactly(1, National_Assembly)
     ]
@@ -147,9 +136,11 @@ class Resolutions(Legal_Normative_Document):
 # Joint_Resolutions can only be promulgate by union (joint 3) of Standing Committee of the National Assembly, Presidium of the Central Committee of the Vietnam Fatherland Front and Government or union (joint 2) of Standing Committee of the National Assembly and Presidium of the Central Committee of the Vietnam Fatherland Front or union (joint 2) of Presidium of the Central Committee of the Vietnam Fatherland Front and Government
 class Joint_Resolutions(Legal_Normative_Document):
     is_a = [
-        canBePromulgatedBy.exactly(3, Standing_Committee_of_the_National_Assembly | Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front | Government) &
-        canBePromulgatedBy.exactly(2, Standing_Committee_of_the_National_Assembly | Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front) &
-        canBePromulgatedBy.exactly(2, Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front | Government)
+        canBePromulgatedBy.some(
+            Standing_Committee_of_the_National_Assembly & Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front & Government |
+            Standing_Committee_of_the_National_Assembly & Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front |
+            Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front & Government
+        )
     ]
 
 # Orders can only be promulgate by one President
