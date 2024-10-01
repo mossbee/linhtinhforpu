@@ -10,27 +10,27 @@ central_agencies = [
     "Government",
     "Prime Minister",
     "State Auditor",
-    "Judicial Council of the Peoples Supreme Court",
+    "Judicial Council of the People Supreme Court",
     "President",
-    "Peoples Supreme Court",
-    "Supreme Peoples Court",
+    "People Supreme Court",
+    "Supreme People Procuracy",
 ]
 
 local_agencies = [
-    "Peoples Council all levels",
-    "Peoples Committees all levels"
+    "People Council",
+    "People Committee"
 ]
 
 people_councils = [
-    "Peoples Council of Province",
-    "Peoples Council of District",
-    "Peoples Council of Commune"
+    "Provincial People Council",
+    "District People Council",
+    "Commune People Council"
 ]
 
 people_committees = [
-    "Peoples Committee of Province",
-    "Peoples Committee of District",
-    "Peoples Committee of Commune"
+    "Provincial People Committee",
+    "District People Committee",
+    "Commune People Committee"
 ]
 
 ministerial_level_agencies = [
@@ -51,7 +51,7 @@ ministerial_level_agencies = [
     "Ministry of Home Affairs",
     "Ministry of Health",
     "Ministry of Science and Technology",
-    "Ministry of Culture Sports and Toursm",
+    "Ministry of Culture Sports and Tourism",
     "Ministry of Natural Resources and Environment",
     "Government Inspectorate",
     "The State Bank of Vietnam",
@@ -62,7 +62,7 @@ ministerial_level_agencies = [
 with legal_onto:
     class Legal_Documents(Thing):
         pass
-    class Legal_Normative_Document(Legal_Documents):
+    class Legal_Normative_Documents(Legal_Documents):
         pass
     class Agencies(Thing):
         pass
@@ -77,8 +77,8 @@ with legal_onto:
     for local_agency in local_agencies:
         local_agency = local_agency.replace(" ", "_")
         type(local_agency, (Local_Level_Agencies, ), {})
-    Peoples_Council_all_levels = legal_onto.Peoples_Council_all_levels
-    Peoples_Committees_all_levels = legal_onto.Peoples_Committees_all_levels
+    Peoples_Council_all_levels = legal_onto.People_Council
+    Peoples_Committees_all_levels = legal_onto.People_Committee
     for people_council in people_councils:
         people_council = people_council.replace(" ", "_")
         type(people_council, (Peoples_Council_all_levels, ), {})
@@ -86,11 +86,11 @@ with legal_onto:
         people_committee = people_committee.replace(" ", "_")
         type(people_committee, (Peoples_Committees_all_levels, ), {})
     
-    class Ministry_and_Ministerial_Level_Agencies(Central_Level_Agencies):
+    class Ministry_Ministerial_Level_Agencies(Central_Level_Agencies):
         pass
     for ministerial_level_agency in ministerial_level_agencies:
         ministerial_level_agency = ministerial_level_agency.replace(" ", "_")
-        type(ministerial_level_agency, (Ministry_and_Ministerial_Level_Agencies, ), {})
+        type(ministerial_level_agency, (Ministry_Ministerial_Level_Agencies, ), {})
 
     class canBePromulgatedBy(ObjectProperty):
         domain = [Legal_Documents]
@@ -102,39 +102,39 @@ Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front = legal_onto.
 Government = legal_onto.Government
 Prime_Minister = legal_onto.Prime_Minister
 State_Auditor = legal_onto.State_Auditor
-Judicial_Council_of_the_Peoples_Supreme_Court = legal_onto.Judicial_Council_of_the_Peoples_Supreme_Court
-Peoples_Council_all_levels = legal_onto.Peoples_Council_all_levels
-Peoples_Committees_all_levels = legal_onto.Peoples_Committees_all_levels
+Judicial_Council_of_the_People_Supreme_Court = legal_onto.Judicial_Council_of_the_People_Supreme_Court
+Peoples_Council_all_levels = legal_onto.People_Council
+Peoples_Committees_all_levels = legal_onto.People_Committee
 President = legal_onto.President
-Peoples_Supreme_Court = legal_onto.Peoples_Supreme_Court
-Supreme_Peoples_Court = legal_onto.Supreme_Peoples_Court
+People_Supreme_Court = legal_onto.People_Supreme_Court
+Supreme_People_Procuracy = legal_onto.Supreme_People_Procuracy
 
 # Constitutions can only be promulgate by one National Assembly
-class Constitutions(Legal_Normative_Document):
+class Constitution(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.exactly(1, National_Assembly)
     ]
 
 # Laws one National Assembly
-class Laws(Legal_Normative_Document):
+class Law(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.exactly(1, National_Assembly)
     ]
 
 # Ordinances one Standing Committee of the National Assembly
-class Ordinances(Legal_Normative_Document):
+class Ordinance(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.exactly(1, Standing_Committee_of_the_National_Assembly)
     ]
 
 # Resolutions one among National Assembly, Standing Committee of the National Assembly, Judicial Council of the Peoples Supreme Court, Peoples Council all levels
-class Resolutions(Legal_Normative_Document):
+class Resolution(Legal_Normative_Documents):
     is_a = [
-        canBePromulgatedBy.exactly(1, National_Assembly | Standing_Committee_of_the_National_Assembly | Judicial_Council_of_the_Peoples_Supreme_Court | Peoples_Council_all_levels)
+        canBePromulgatedBy.exactly(1, National_Assembly | Standing_Committee_of_the_National_Assembly | Judicial_Council_of_the_People_Supreme_Court | Peoples_Council_all_levels)
     ]
 
 # Joint_Resolutions can only be promulgate by union (joint 3) of Standing Committee of the National Assembly, Presidium of the Central Committee of the Vietnam Fatherland Front and Government or union (joint 2) of Standing Committee of the National Assembly and Presidium of the Central Committee of the Vietnam Fatherland Front or union (joint 2) of Presidium of the Central Committee of the Vietnam Fatherland Front and Government
-class Joint_Resolutions(Legal_Normative_Document):
+class Joint_Resolution(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.some(
             Standing_Committee_of_the_National_Assembly & Presidium_of_the_Central_Committee_of_the_Vietnam_Fatherland_Front & Government |
@@ -144,34 +144,34 @@ class Joint_Resolutions(Legal_Normative_Document):
     ]
 
 # Orders can only be promulgate by one President
-class Orders(Legal_Normative_Document):
+class Order(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.exactly(1, President)
     ]
 
 # Decrees can only be promulgate by one Government
-class Decrees(Legal_Normative_Document):
+class Decree(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.exactly(1, Government)
     ]
 
 # Decisions can only be promulgate by one among Prime Minister, State Auditor, Peoples Committee all levels, President
-class Decisions(Legal_Normative_Document):
+class Decision(Legal_Normative_Documents):
     is_a = [
         canBePromulgatedBy.exactly(1, Prime_Minister | State_Auditor | Peoples_Committees_all_levels | President)
     ]
 
 # Circulars can only be promulgate by one among Peoples Supreme Court, Ministry and Ministerial Level Agencies, Supreme Peoples Court
-class Circulars(Legal_Normative_Document):
+class Circular(Legal_Normative_Documents):
     is_a = [
-        canBePromulgatedBy.exactly(1, Peoples_Supreme_Court | Ministry_and_Ministerial_Level_Agencies | Supreme_Peoples_Court)
+        canBePromulgatedBy.exactly(1, People_Supreme_Court | Ministry_Ministerial_Level_Agencies | Supreme_People_Procuracy)
     ]
 
 # Joint Circulars can only be promulgate by union (min 2) of State Auditor, Peoples Supreme Court, Supreme Peoples Court, Ministry and Ministerial Level Agencies and at least one of them are among State Auditor, Peoples Supreme Court, Supreme Peoples Court
-class Joint_Circulars(Legal_Normative_Document):
+class Joint_Circular(Legal_Normative_Documents):
     is_a = [
-        canBePromulgatedBy.min(2, State_Auditor | Peoples_Supreme_Court | Supreme_Peoples_Court | Ministry_and_Ministerial_Level_Agencies) &
-        canBePromulgatedBy.some(State_Auditor | Peoples_Supreme_Court | Supreme_Peoples_Court)
+        canBePromulgatedBy.min(2, State_Auditor | People_Supreme_Court | Supreme_People_Procuracy | Ministry_Ministerial_Level_Agencies) &
+        canBePromulgatedBy.some(State_Auditor | People_Supreme_Court | Supreme_People_Procuracy)
     ]
 
 legal_onto.save(file="legal_onto.owl", format="rdfxml")

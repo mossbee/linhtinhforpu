@@ -1,0 +1,100 @@
+\subsection{Proposed Reasoning}
+
+To retrieve pre-defined information, we utilize SPARQL queries to query the ontology. The queries are designed to find agencies that can promulgate one specific type of document.
+
+
+
+
+To retrieve pre-defined information, we use two queries for two specific purposes:
+
+First is the query to find all types of document that a specific agency can promulgate. This query is a union of two differents parts. In more detail:
+\begin{itemize}
+    \item The first part of the query looks for entities (\textbf{?x}) that are subclasses of a class that has a restriction on a property (\textbf{?property}) and a class (\textbf{?class}). This class (\textbf{?class}) must be part of a union that includes \textbf{ont:$\{$agency$\}$}. In other words, it retrieves entities that are subclasses of a class that can be either \textbf{ont:$\{$agency$\}$} or another class in the same union.
+    \item The second part of the query retrieves entities (\textbf{?x}) that are subclasses of a class that has a restriction on a property (\textbf{?property}) and all values from \textbf{ont:$\{$agency$\}$}. This means it fetches entities that are subclasses of a class where all values of a certain property belong to \textbf{ont:$\{$agency$\}$}.
+\end{itemize}
+
+
+
+
+
+\begin{lstlisting}
+For each distinct 'x':
+If 'x' is a subclass of a restriction:
+    And the restriction has a property '?property'
+    And the restriction is on a class '?class'
+    And '?class' is a union of classes that includes 'ont:agency'
+Or
+If 'x' is a subclass of a restriction:
+    And the restriction has a property '?property'
+    And the restriction has all values from 'ont:agency'
+Then select 'x' 
+\end{lstlisting}
+
+
+Second query is to find joint of agencies that can promulgate joint type document. This query retrieves distinct restrictions that are related to \textbf{ont:$\{$joint-type document$\}$} through specific class and property restrictions.
+
+\begin{lstlisting}
+For each distinct 'restriction':
+If 'restriction' is a subclass of a class that is part of a union:
+    And the class is 'joint-type document' from the LegalOntology
+Then select 'restriction'
+\end{lstlisting}
+
+Above are the pseudo-implements for two queries, real one can be found in Appendix \ref{lst:query1}
+
+\subsection{Contradiction detecting}
+
+In the previous section, Joint Circulars has the restriction that only Ministry, Ministerial level agencies and some other agencies can promulgate. But there is actually no agency called Ministry, Ministerial level agencies in Viet Nam state system. It is a name that law on legislative document promulgation used to call some such as Ministry of National Defence, Ministry of Public Security, Government Inspectorate,... These agencies are subclass of Ministry_Ministerial_level_agencies class. So with a given agency's name, we should find it super class. The following SPARQL query is used to find the superclass of a given class.
+
+In the previous section, we have define Joint Circular as a type of document that MinistryMinisterialLevelAgencies and some other agencies can co-promulgate. But there is actually no agency called MinistryMinisterialLevelAgencies in Viet Nam state system. It is a name that law on legislative document used to call some sub-agencies like: Ministry of National Defence, Ministry of Public Security, Government Inspectorate,... These agencies are subclass of MinistryMinisterialLevelAgencies class. With ontology, we can easily find out its superclass.
+
+With \texttt{get\_class(name)} is the function to get the class from class name 'name', and \texttt{parent\_class} is the function to get the super class of a class. The algorithm as following:
+
+\begin{algorithm}[H]
+\caption{Find superclass}\label{alg:superclass}
+\hspace*{\algorithmicindent} \textbf{Input} class\_name = The name of class\\
+\hspace*{\algorithmicindent} \textbf{Output} Super class name
+\begin{algorithmic}[1]
+\State Read ontology file
+\State C := get\_class(class\_name)
+\If {C != top-level class}
+\State super\_class = parent\_class(C)
+\Else
+\If {C = top-level class}
+\State super\_class := C
+\EndIf
+\EndIf
+\State \Return super\_class
+\end{algorithmic}
+\end{algorithm}
+
+With \texttt{query\_call(query\_statement)} is the function to query to get data from ontology with requirement in "query\_statement".
+
+\begin{algorithm}[H]
+\caption{Check for contradiction in legislative document type promulgation}\label{alg:contradict}
+\hspace*{\algorithmicindent} \textbf{Input} DocumentType = Legislative document type and P = { promulgator\_1,…, promulgator\_n}: document's promulgator\\
+\hspace*{\algorithmicindent} \textbf{Output} correctness = The correctness of the promulgation
+\begin{algorithmic}[1]
+\State Read ontology file
+\If { $\mid$ P $\mid$ = 1 } \Comment{There is only one promulgator }
+\State Q1 := query statement to find all document types of P
+\State LT := query\_call(Q1) \Comment{LT is list of document types of P}
+\If {DocumentType in LT1}
+\State correctness := True
+\Else 
+\State correctness := False
+\EndIf
+\Else \Comment{There are more than one promulgator}
+\If {DocumentType = JointResolutions or JointCirculars}
+\State Q2 := query statement to find agencies promulgate DocumentType
+\State LA = query\_call(Q2) \Comment{LA is list of agencies promulgate DocumentType}
+\If {P in LA}
+\State correctness := True
+\Else
+\State correctness := False
+\EndIf
+\EndIf
+\EndIf
+\State \Return correctness
+\end{algorithmic}
+\end{algorithm}
