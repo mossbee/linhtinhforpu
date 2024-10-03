@@ -34,29 +34,29 @@ peopleCommittees = [
 ]
 
 ministerialLevelAgencies = [
-    "Ministry of National Defense",
-    "Ministry of Public Security",
-    "Ministry of Foreign Affairs",
-    "Ministry of Justice",
-    "Ministry of Justice",
-    "Ministry of Finance",
-    "Ministry of Industry and Trade",
-    "Ministry of Labor War Invalids and Social Affairs",
-    "Ministry of Transport",
-    "Ministry of Construction",
-    "Ministry of Information and Communications",
-    "Ministry of Education and Training",
-    "Ministry of Agriculture and Rural Development",
-    "Ministry of Planning and Investment",
-    "Ministry of Home Affairs",
-    "Ministry of Health",
-    "Ministry of Science and Technology",
-    "Ministry of Culture Sports and Tourism",
-    "Ministry of Natural Resources and Environment",
+    "Ministry Of National Defense",
+    "Ministry Of Public Security",
+    "Ministry Of Foreign Affairs",
+    "Ministry Of Justice",
+    "Ministry Of Justice",
+    "Ministry Of Finance",
+    "Ministry Of Industry And Trade",
+    "Ministry Of Labor War Invalids And Social Affairs",
+    "Ministry Of Transport",
+    "Ministry Of Construction",
+    "Ministry Of Information And Communications",
+    "Ministry Of Education And Training",
+    "Ministry Of Agriculture And Rural Development",
+    "Ministry Of Planning And Investment",
+    "Ministry Of Home Affairs",
+    "Ministry Of Health",
+    "Ministry Of Science And Technology",
+    "Ministry Of Culture Sports And Tourism",
+    "Ministry Of Natural Resources And Environment",
     "Government Inspectorate",
-    "The State Bank of Vietnam",
-    "Committee for Ethnic Affairs",
-    "Office of the Government"
+    "The State Bank Of Vietnam",
+    "Committee For Ethnic Affairs",
+    "Office Of The Government"
 ]
 
 with legalOnto:
@@ -92,7 +92,7 @@ with legalOnto:
         ministerialLevelAgency = ministerialLevelAgency.replace(" ", "")
         type(ministerialLevelAgency, (MinistryMinisterialLevelAgencies, ), {})
 
-    class CanBePromulgatedBy(ObjectProperty):
+    class PromulgatedBy(ObjectProperty):
         domain = [LegalDocuments]
         range = [Agencies]
         
@@ -112,31 +112,31 @@ SupremePeopleProcuracy = legalOnto.SupremePeopleProcuracy
 # Constitutions can only be promulgated by one National Assembly
 class Constitution(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, NationalAssembly)
+        PromulgatedBy.exactly(1, NationalAssembly)
     ]
 
 # Laws by one National Assembly
 class Law(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, NationalAssembly)
+        PromulgatedBy.exactly(1, NationalAssembly)
     ]
 
-# Ordinances by one Standing Committee of the National Assembly
+# Ordinances by one Standing Committee Of the National Assembly
 class Ordinance(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, StandingCommitteeOfTheNationalAssembly)
+        PromulgatedBy.exactly(1, StandingCommitteeOfTheNationalAssembly)
     ]
 
-# Resolutions by one among National Assembly, Standing Committee of the National Assembly, Judicial Council of the Peoples Supreme Court, Peoples Council all levels
+# Resolutions by one among National Assembly, Standing Committee Of the National Assembly, Judicial Council Of the Peoples Supreme Court, Peoples Council all levels
 class Resolution(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, NationalAssembly | StandingCommitteeOfTheNationalAssembly | JudicialCouncilOfThePeopleSupremeCourt | PeoplesCouncilAllLevels)
+        PromulgatedBy.exactly(1, NationalAssembly | StandingCommitteeOfTheNationalAssembly | JudicialCouncilOfThePeopleSupremeCourt | PeoplesCouncilAllLevels)
     ]
 
-# JointResolutions by union of Standing Committee of the National Assembly, Presidium of the Central Committee of the Vietnam Fatherland Front, and Government
+# JointResolutions by union Of Standing Committee Of the National Assembly, Presidium Of the Central Committee Of the Vietnam Fatherland Front, and Government
 class JointResolution(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.some(
+        PromulgatedBy.some(
             StandingCommitteeOfTheNationalAssembly & PresidiumOfTheCentralCommitteeOfTheVietnamFatherlandFront & Government |
             StandingCommitteeOfTheNationalAssembly & PresidiumOfTheCentralCommitteeOfTheVietnamFatherlandFront |
             PresidiumOfTheCentralCommitteeOfTheVietnamFatherlandFront & Government
@@ -146,32 +146,32 @@ class JointResolution(LegalNormativeDocuments):
 # Orders by one President
 class Order(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, President)
+        PromulgatedBy.exactly(1, President)
     ]
 
 # Decrees by one Government
 class Decree(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, Government)
+        PromulgatedBy.exactly(1, Government)
     ]
 
 # Decisions by one among Prime Minister, State Auditor, Peoples Committee all levels, President
 class Decision(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, PrimeMinister | StateAuditor | PeoplesCommitteesAllLevels | President)
+        PromulgatedBy.exactly(1, PrimeMinister | StateAuditor | PeoplesCommitteesAllLevels | President)
     ]
 
 # Circulars by one among Peoples Supreme Court, Ministry and Ministerial Level Agencies, Supreme Peoples Court
 class Circular(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.exactly(1, PeopleSupremeCourt | MinistryMinisterialLevelAgencies | SupremePeopleProcuracy)
+        PromulgatedBy.exactly(1, PeopleSupremeCourt | MinistryMinisterialLevelAgencies | SupremePeopleProcuracy)
     ]
 
-# JointCirculars by union of State Auditor, Peoples Supreme Court, Supreme Peoples Court, Ministry and Ministerial Level Agencies
+# JointCirculars by union Of State Auditor, Peoples Supreme Court, Supreme Peoples Court, Ministry and Ministerial Level Agencies
 class JointCircular(LegalNormativeDocuments):
     is_a = [
-        CanBePromulgatedBy.min(2, StateAuditor | PeopleSupremeCourt | SupremePeopleProcuracy | MinistryMinisterialLevelAgencies) &
-        CanBePromulgatedBy.some(StateAuditor | PeopleSupremeCourt | SupremePeopleProcuracy)
+        PromulgatedBy.min(2, StateAuditor | PeopleSupremeCourt | SupremePeopleProcuracy | MinistryMinisterialLevelAgencies) &
+        PromulgatedBy.some(StateAuditor | PeopleSupremeCourt | SupremePeopleProcuracy)
     ]
 
 legalOnto.save(file="legal_onto.owl", format="rdfxml")
